@@ -1,0 +1,45 @@
+import React, { Component } from 'react'
+import { PDFDocument } from 'pdf-lib'
+
+import styles from './PdfPlayground.module.css'
+
+const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
+
+class PdfPlayground extends Component {
+  state = {
+    status: 'idle',
+    data: ''
+  }
+
+  loadPdf = async () => {
+    this.setState({
+      status: 'loading'
+    })
+    const pdfBytes = await fetch(url).then(res => res.arrayBuffer())
+    console.log('pdfBytes:', pdfBytes)
+    const pdfDoc = await PDFDocument.load(pdfBytes)
+    const dataB64 = await pdfDoc.saveAsBase64({ dataUri: true })
+    console.log('dataB64:', dataB64)
+    this.setState({
+      status: 'done',
+      data: dataB64
+    })
+  }
+
+  render() {
+    if (this.state.status === 'idle') {
+      this.loadPdf()
+    }
+    return (
+      <div>
+        <h1>PDF Playground</h1>
+        <p>status: {this.state.status}</p>
+        {this.state.status === 'done' ? (
+          <iframe src={this.state.data} className={styles.preview} />
+        ) : null}
+      </div>
+    )
+  }
+}
+
+export default PdfPlayground
