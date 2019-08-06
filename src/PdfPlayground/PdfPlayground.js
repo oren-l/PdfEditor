@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PDFDocument } from 'pdf-lib'
 
-import styles from './PdfPlayground.module.css'
+import Viewport from './Viewport/Viewport'
 
 const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
 
@@ -35,7 +35,7 @@ class PdfPlayground extends Component {
         <h1>PDF Playground</h1>
         <p>status: {this.state.status}</p>
         {this.state.status === 'done' ? (
-          <iframe src={this.state.data} className={styles.preview} />
+          <Viewport source={this.state.data} />
         ) : null}
       </div>
     )
