@@ -6,7 +6,8 @@
     "pdf-lib": "^1.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "@bundled-es-modules/pdfjs-dist": "2.1.266-rc"
   },
   "scripts": {
     "start": "react-scripts start",

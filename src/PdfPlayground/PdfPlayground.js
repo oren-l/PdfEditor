@@ -17,12 +17,12 @@ class PdfPlayground extends Component {
     })
     const pdfBytes = await fetch(url).then(res => res.arrayBuffer())
     console.log('pdfBytes:', pdfBytes)
-    const pdfDoc = await PDFDocument.load(pdfBytes)
-    const dataB64 = await pdfDoc.saveAsBase64({ dataUri: true })
-    console.log('dataB64:', dataB64)
+    // const pdfDoc = await PDFDocument.load(pdfBytes)
+    // const dataB64 = await pdfDoc.saveAsBase64({ dataUri: true })
+    // console.log('dataB64:', dataB64)
     this.setState({
       status: 'done',
-      data: dataB64
+      data: pdfBytes
     })
   }
 
@@ -35,7 +35,7 @@ class PdfPlayground extends Component {
         <h1>PDF Playground</h1>
         <p>status: {this.state.status}</p>
         {this.state.status === 'done' ? (
-          <Viewport source={this.state.data} />
+          <Viewport data={this.state.data} />
         ) : null}
       </div>
     )
