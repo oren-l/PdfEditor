@@ -3,7 +3,7 @@ import { PDFDocument } from 'pdf-lib'
 
 import Viewport from './Viewport/Viewport'
 
-const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
+const url = `${process.env.PUBLIC_URL}/example.pdf`
 
 class PdfPlayground extends Component {
   state = {
