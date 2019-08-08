@@ -10,7 +10,7 @@ class PdfDoc extends Component {
     super(props)
     this.state = {
       docObj: null,
-      prevData: props.data
+      data: props.data
     }
   }
 
@@ -27,7 +27,7 @@ class PdfDoc extends Component {
       const docObj = await loadDocument(this.props.data)
       this.setState({
         docObj,
-        prevData: this.props.data
+        data: this.props.data
       })
     }
   }

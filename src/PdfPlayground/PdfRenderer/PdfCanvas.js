@@ -1,5 +1,17 @@
 import React, { Component } from 'react'
 
+function renderPdfToCanvas(canvasEl, page, scale) {
+  const viewport = page.getViewport({ scale })
+
+  canvasEl.width = viewport.width // canvas width and height must be according to viewport scale!
+  canvasEl.height = viewport.height
+
+  page.render({
+    canvasContext: canvasEl.getContext('2d'),
+    viewport
+  })
+}
+
 class PdfCanvas extends Component {
   constructor(props) {
     super(props)
@@ -8,16 +20,12 @@ class PdfCanvas extends Component {
 
   componentDidMount() {
     const { page, scale } = this.props
-    const canvasEl = this.canvasRef.current
-    const viewport = page.getViewport({ scale })
+    renderPdfToCanvas(this.canvasRef.current, page, scale)
+  }
 
-    canvasEl.width = viewport.width // canvas width and height must be according to viewport scale!
-    canvasEl.height = viewport.height
-
-    page.render({
-      canvasContext: canvasEl.getContext('2d'),
-      viewport
-    })
+  componentDidUpdate() {
+    const { page, scale } = this.props
+    renderPdfToCanvas(this.canvasRef.current, page, scale)
   }
 
   render() {
