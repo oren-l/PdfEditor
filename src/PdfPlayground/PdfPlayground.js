@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { PDFDocument } from 'pdf-lib'
 
-import PdfPage from './PdfPage/PdfPage'
+import PdfDoc from './PdfRenderer/PdfDoc'
+import PdfPage from './PdfRenderer/PdfPage'
+import PdfCanvas from './PdfRenderer/PdfCanvas'
 
 const url = `${process.env.PUBLIC_URL}/example.pdf`
 
@@ -26,6 +28,10 @@ class PdfPlayground extends Component {
     })
   }
 
+  updatePointerPos = (x, y) => {
+    console.log('viewport pos:', [x, y])
+  }
+
   render() {
     if (this.state.status === 'idle') {
       this.loadPdf()
@@ -35,7 +41,23 @@ class PdfPlayground extends Component {
         <h1>PDF Playground</h1>
         <p>status: {this.state.status}</p>
         {this.state.status === 'done' ? (
-          <PdfPage data={this.state.data} pageNum={1} />
+          <div>
+            <PdfDoc data={this.state.data}>
+              {doc => (
+                <PdfPage document={doc} pageNum={1}>
+                  {page => (
+                    <PdfCanvas
+                      page={page}
+                      scale={1}
+                      onMouseMove={event =>
+                        this.updatePointerPos(event.clientX, event.clientY)
+                      }
+                    />
+                  )}
+                </PdfPage>
+              )}
+            </PdfDoc>
+          </div>
         ) : null}
       </div>
     )
