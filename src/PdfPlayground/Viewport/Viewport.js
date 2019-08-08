@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import pdfjs from '@bundled-es-modules/pdfjs-dist/build/pdf'
-import styles from './viewport.module.css'
 
 class Viewport extends Component {
   constructor(props) {
@@ -16,9 +15,15 @@ class Viewport extends Component {
   renderAsync = async data => {
     const doc = await pdfjs.getDocument(data).promise
     const page = await doc.getPage(1)
+    const viewport = page.getViewport({ scale: 1 })
+    const canvas = this.canvasRef.current
+
+    canvas.width = viewport.width // canvas width and height must be according to viewport scale!
+    canvas.height = viewport.height
+    window.page = page
     page.render({
       canvasContext: this.canvasRef.current.getContext('2d'),
-      viewport: page.getViewport({ scale: 1 })
+      viewport
     })
   }
 
@@ -34,7 +39,6 @@ class Viewport extends Component {
 
     return (
       <canvas
-        className={styles.viewport}
         ref={this.canvasRef}
         onMouseMove={event =>
           this.updatePointerPos(event.clientX, event.clientY)
