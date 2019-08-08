@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import pdfjs from '@bundled-es-modules/pdfjs-dist/build/pdf'
 
-class Viewport extends Component {
+class PdfPage extends Component {
   constructor(props) {
     super(props)
     this.canvasRef = React.createRef()
@@ -12,9 +12,9 @@ class Viewport extends Component {
     window.canvasRef = this.canvasRef
   }
 
-  renderAsync = async data => {
+  renderAsync = async (data, pageNum) => {
     const doc = await pdfjs.getDocument(data).promise
-    const page = await doc.getPage(1)
+    const page = await doc.getPage(pageNum)
     const viewport = page.getViewport({ scale: 1 })
     const canvas = this.canvasRef.current
 
@@ -32,20 +32,20 @@ class Viewport extends Component {
   }
 
   render() {
-    const { data } = this.props
+    const { data, pageNum } = this.props
     window.data = data
-    this.renderAsync(data)
+    this.renderAsync(data, pageNum)
     console.log('viewport data:', data)
 
     return (
       <canvas
         ref={this.canvasRef}
-        onMouseMove={event =>
-          this.updatePointerPos(event.clientX, event.clientY)
-        }
+        // onMouseMove={event =>
+        //   this.updatePointerPos(event.clientX, event.clientY)
+        // }
       />
     )
   }
 }
 
-export default Viewport
+export default PdfPage

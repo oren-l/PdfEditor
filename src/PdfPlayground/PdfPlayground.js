@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PDFDocument } from 'pdf-lib'
 
-import Viewport from './Viewport/Viewport'
+import PdfPage from './PdfPage/PdfPage'
 
 const url = `${process.env.PUBLIC_URL}/example.pdf`
 
@@ -35,7 +35,7 @@ class PdfPlayground extends Component {
         <h1>PDF Playground</h1>
         <p>status: {this.state.status}</p>
         {this.state.status === 'done' ? (
-          <Viewport data={this.state.data} />
+          <PdfPage data={this.state.data} pageNum={1} />
         ) : null}
       </div>
     )
