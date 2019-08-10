@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { PDFDocument } from 'pdf-lib'
+import { degrees, PDFDocument, rgb, grayscale, StandardFonts } from 'pdf-lib'
 
 import PdfDoc from './PdfRenderer/PdfDoc'
 import PdfPage from './PdfRenderer/PdfPage'
@@ -9,38 +9,58 @@ const url = `${process.env.PUBLIC_URL}/example.pdf`
 
 class PdfPlayground extends Component {
   state = {
-    status: 'idle',
-    data: ''
+    data: null
   }
 
   loadPdf = async () => {
-    this.setState({
-      status: 'loading'
-    })
     const pdfBytes = await fetch(url).then(res => res.arrayBuffer())
-    console.log('pdfBytes:', pdfBytes)
-    // const pdfDoc = await PDFDocument.load(pdfBytes)
-    // const dataB64 = await pdfDoc.saveAsBase64({ dataUri: true })
-    // console.log('dataB64:', dataB64)
     this.setState({
-      status: 'done',
       data: pdfBytes
     })
+    console.log('original loaded')
   }
 
-  updatePointerPos = (x, y) => {
+  drawRect = async (x, y) => {
     console.log('viewport pos:', [x, y])
+    const pdfDoc = await PDFDocument.load(this.state.data)
+    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+    const pages = pdfDoc.getPages()
+    const firstPage = pages[0]
+    const { width, height } = firstPage.getSize()
+    // firstPage.drawText('This text was added with JavaScript!', {
+    //   x,
+    //   y: height - (y - 80),
+    //   size: 25,
+    //   font: helveticaFont,
+    //   color: rgb(0.95, 0.1, 0.1),
+    //   rotate: degrees(-45)
+    // })
+    const size = 20
+    firstPage.drawSquare({
+      x,
+      y: height - y - size,
+      size,
+      // rotate: degrees(-15),
+      borderWidth: 2,
+      borderColor: grayscale(0.5),
+      color: rgb(0.75, 0.2, 0.2)
+    })
+    const modifiedPdfBytes = await pdfDoc.save()
+    this.setState({
+      data: modifiedPdfBytes
+    })
+    console.log('modified loaded')
   }
 
   render() {
-    if (this.state.status === 'idle') {
+    if (this.state.data === null) {
       this.loadPdf()
     }
     return (
       <div>
         <h1>PDF Playground</h1>
-        <p>status: {this.state.status}</p>
-        {this.state.status === 'done' ? (
+        <p>Click on the document to add small rectangles to it</p>
+        {this.state.data !== null ? (
           <div>
             <PdfDoc data={this.state.data}>
               {doc => (
@@ -49,9 +69,7 @@ class PdfPlayground extends Component {
                     <PdfCanvas
                       page={page}
                       scale={1}
-                      onMouseMove={event =>
-                        this.updatePointerPos(event.clientX, event.clientY)
-                      }
+                      onClick={(event, { x, y }) => this.drawRect(x, y)}
                     />
                   )}
                 </PdfPage>

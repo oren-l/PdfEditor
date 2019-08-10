@@ -28,8 +28,35 @@ class PdfCanvas extends Component {
     renderPdfToCanvas(this.canvasRef.current, page, scale)
   }
 
+  // drawDot = event => {
+  //   const { x, y } = this.getMousePos(event.clientX, event.clientY)
+  //   const canvas = this.canvasRef.current
+  //   const ctx = canvas.getContext('2d')
+  //   ctx.fillRect(x, y, 2, 2)
+  // }
+
+  getMousePos = (x, y) => {
+    // get mouse position relative to canvas
+    const canvas = this.canvasRef.current
+    const { left, top } = canvas.getBoundingClientRect()
+    return {
+      x: x - left,
+      y: y - top
+    }
+  }
+
   render() {
-    const { page, scale, ...otherProps } = this.props
+    const { page, scale, onClick, ...otherProps } = this.props
+    if (onClick instanceof Function) {
+      otherProps.onClick = event => {
+        return this.props.onClick(
+          event,
+          this.getMousePos(event.clientX, event.clientY)
+        )
+      }
+    }
+    otherProps.style = otherProps.style || {}
+    otherProps.style.cursor = 'crosshair'
     return <canvas ref={this.canvasRef} {...otherProps} />
   }
 }
