@@ -1,0 +1,16 @@
+.container {
+  margin: 10px 20%;
+  padding: 5px;
+  background-color: #e1f5fe;
+}
+
+.dropzone {
+  cursor: pointer;
+  border: 2px dashed #01579b;
+  background-color: #b3e5fc;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #01579b;
+}

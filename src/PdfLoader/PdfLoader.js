@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Files from 'react-files'
 
+import styles from './PdfLoader.module.css'
+
 class PdfLoader extends Component {
   onFilesChange = async files => {
     console.log('got request to load files:', files)
@@ -16,15 +18,17 @@ class PdfLoader extends Component {
 
   render() {
     return (
-      <Files
-        className="files-dropzone"
-        onChange={this.onFilesChange}
-        onError={this.onFilesError}
-        accepts={['.pdf']}
-        clickable
-      >
-        Drop a file here or click to upload
-      </Files>
+      <div className={styles.container}>
+        <Files
+          className={styles.dropzone}
+          onChange={this.onFilesChange}
+          onError={this.onFilesError}
+          accepts={['.pdf']}
+          clickable
+        >
+          Drop a file here or click to upload
+        </Files>
+      </div>
     )
   }
 }
