@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { degrees, PDFDocument, rgb, grayscale, StandardFonts } from 'pdf-lib'
 import { saveAs } from 'file-saver'
-import Files from 'react-files'
 
 import PdfDoc from './PdfRenderer/PdfDoc'
 import PdfPage from './PdfRenderer/PdfPage'
 import PdfCanvas from './PdfRenderer/PdfCanvas'
+import PdfLoader from '../PdfLoader/PdfLoader'
 
 const url = `${process.env.PUBLIC_URL}/example.pdf`
 
@@ -60,18 +60,8 @@ class PdfPlayground extends Component {
     saveAs(blob, 'output.pdf')
   }
 
-  onFilesChange = async files => {
-    console.log('got request to load files:', files)
-    const file = files[0]
-    const data = await file.arrayBuffer()
-    console.log('data:', data)
-    this.setState({
-      data
-    })
-  }
-
-  onFilesError = (error, files) => {
-    console.warn(`error loading files ${files}. error:`, error)
+  onPdfLoad = data => {
+    this.setState({ data })
   }
 
   render() {
@@ -81,15 +71,7 @@ class PdfPlayground extends Component {
     return (
       <div>
         <h1>PDF Playground</h1>
-        <Files
-          className="files-dropzone"
-          onChange={this.onFilesChange}
-          onError={this.onFilesError}
-          accepts={['.pdf']}
-          clickable
-        >
-          Drop files here or click to upload
-        </Files>
+        <PdfLoader onLoad={this.onPdfLoad} />
         <p>Click on the document to add small rectangles to it</p>
         <div>
           <button onClick={this.download}>Download</button>
