@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { degrees, PDFDocument, rgb, grayscale, StandardFonts } from 'pdf-lib'
+import { saveAs } from 'file-saver'
 
 import PdfDoc from './PdfRenderer/PdfDoc'
 import PdfPage from './PdfRenderer/PdfPage'
@@ -52,6 +53,12 @@ class PdfPlayground extends Component {
     console.log('modified loaded')
   }
 
+  download = () => {
+    const blob = new Blob([this.state.data], { type: 'application/pdf' })
+    console.log('request to download file accepted', blob)
+    saveAs(blob, 'output.pdf')
+  }
+
   render() {
     if (this.state.data === null) {
       this.loadPdf()
@@ -60,6 +67,9 @@ class PdfPlayground extends Component {
       <div>
         <h1>PDF Playground</h1>
         <p>Click on the document to add small rectangles to it</p>
+        <div>
+          <button onClick={this.download}>Download</button>
+        </div>
         {this.state.data !== null ? (
           <div>
             <PdfDoc data={this.state.data}>
