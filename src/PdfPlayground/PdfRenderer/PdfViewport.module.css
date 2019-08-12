@@ -1,0 +1,10 @@
+.viewport {
+  background-color: black;
+  overflow: auto;
+}
+
+.page {
+  display: inline-block;
+  border: 9px solid transparent;
+  overflow: visible;
+}

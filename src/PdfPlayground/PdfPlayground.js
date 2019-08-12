@@ -5,6 +5,8 @@ import { saveAs } from 'file-saver'
 import PdfLoader from '../PdfLoader/PdfLoader'
 import PdfViewport from './PdfRenderer/PdfViewport'
 
+import styles from './PdfPlayground.module.css'
+
 const url = `${process.env.PUBLIC_URL}/example.pdf`
 
 class PdfPlayground extends Component {
@@ -67,7 +69,7 @@ class PdfPlayground extends Component {
       this.loadPdf()
     }
     return (
-      <div>
+      <div className={styles.container}>
         <h1>PDF Playground</h1>
         <PdfLoader onLoad={this.onPdfLoad} />
         <p>Click on the document to add small rectangles to it</p>
@@ -80,6 +82,7 @@ class PdfPlayground extends Component {
             pageNum={1}
             scale={1}
             onClick={(event, { x, y }) => this.drawRect(x, y)}
+            className={styles.viewport}
           />
         ) : null}
       </div>

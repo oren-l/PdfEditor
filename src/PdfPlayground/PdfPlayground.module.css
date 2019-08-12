@@ -1,0 +1,15 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.viewport {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 390px;
+  border: 1px solid black;
+}
