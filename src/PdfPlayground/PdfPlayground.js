@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import { degrees, PDFDocument, rgb, grayscale, StandardFonts } from 'pdf-lib'
 import { saveAs } from 'file-saver'
 
-import PdfDoc from './PdfRenderer/PdfDoc'
-import PdfPage from './PdfRenderer/PdfPage'
-import PdfCanvas from './PdfRenderer/PdfCanvas'
 import PdfLoader from '../PdfLoader/PdfLoader'
+import PdfViewport from './PdfRenderer/PdfViewport'
 
 const url = `${process.env.PUBLIC_URL}/example.pdf`
 
@@ -77,21 +75,12 @@ class PdfPlayground extends Component {
           <button onClick={this.download}>Download</button>
         </div>
         {this.state.data !== null ? (
-          <div>
-            <PdfDoc data={this.state.data}>
-              {doc => (
-                <PdfPage document={doc} pageNum={1}>
-                  {page => (
-                    <PdfCanvas
-                      page={page}
-                      scale={1}
-                      onClick={(event, { x, y }) => this.drawRect(x, y)}
-                    />
-                  )}
-                </PdfPage>
-              )}
-            </PdfDoc>
-          </div>
+          <PdfViewport
+            data={this.state.data}
+            pageNum={1}
+            scale={1}
+            onClick={(event, { x, y }) => this.drawRect(x, y)}
+          />
         ) : null}
       </div>
     )
