@@ -11,7 +11,8 @@ const url = `${process.env.PUBLIC_URL}/example.pdf`
 
 class PdfPlayground extends Component {
   state = {
-    data: null
+    data: null,
+    scale: 1
   }
 
   loadPdf = async () => {
@@ -64,27 +65,47 @@ class PdfPlayground extends Component {
     this.setState({ data })
   }
 
+  onZoomChange = amount => {
+    this.setState(state => ({
+      scale: state.scale + amount
+    }))
+  }
+
   render() {
+    console.log('[playground render] scale:', this.state.scale)
+
     if (this.state.data === null) {
       this.loadPdf()
     }
     return (
-      <div className={styles.container}>
+      <div className={styles.screenViewport}>
         <h1>PDF Playground</h1>
         <PdfLoader onLoad={this.onPdfLoad} />
         <p>Click on the document to add small rectangles to it</p>
-        <div>
-          <button onClick={this.download}>Download</button>
+        <div className={styles.editorArea}>
+          <div className={styles.toolbar}>
+            <div className={styles.scale}>
+              <button onClick={() => this.onZoomChange(+0.1)}>+</button>
+              <button onClick={() => this.onZoomChange(-0.1)}>-</button>
+              <input
+                type="text"
+                disabled
+                value={`${(this.state.scale * 100).toFixed(0)}%`}
+              />
+            </div>
+
+            <button onClick={this.download}>Download</button>
+          </div>
+          {this.state.data !== null ? (
+            <PdfViewport
+              data={this.state.data}
+              pageNum={1}
+              scale={this.state.scale}
+              onClick={(event, { x, y }) => this.drawRect(x, y)}
+              className={styles.pdfViewport}
+            />
+          ) : null}
         </div>
-        {this.state.data !== null ? (
-          <PdfViewport
-            data={this.state.data}
-            pageNum={1}
-            scale={1}
-            onClick={(event, { x, y }) => this.drawRect(x, y)}
-            className={styles.viewport}
-          />
-        ) : null}
       </div>
     )
   }

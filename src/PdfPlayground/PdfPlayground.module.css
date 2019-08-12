@@ -1,15 +1,50 @@
-.container {
+.screenViewport {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
-.viewport {
+.editorArea {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   top: 390px;
+}
+
+.toolbar {
+  display: flex;
+  height: 40px;
+  padding: 5px 5px;
+  box-sizing: border-box;
+  background-color: #333;
+}
+
+.toolbar button {
+  cursor: pointer;
+}
+
+.toolbar .scale {
+  display: flex;
+  margin: 0 5px;
+  border: 1px solid #666;
+}
+
+.toolbar .scale > * {
+  margin: 1px;
+}
+
+.toolbar .scale input {
+  width: 4em;
+  text-align: center;
+}
+
+.pdfViewport {
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   border: 1px solid black;
 }
