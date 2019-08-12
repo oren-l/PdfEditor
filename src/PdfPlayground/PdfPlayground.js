@@ -40,8 +40,8 @@ class PdfPlayground extends Component {
     // })
     const size = 20
     firstPage.drawSquare({
-      x,
-      y: height - y - size,
+      x: x / this.state.scale,
+      y: height - y / this.state.scale - size,
       size,
       // rotate: degrees(-15),
       borderWidth: 2,
