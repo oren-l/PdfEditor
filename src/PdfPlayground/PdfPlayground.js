@@ -7,19 +7,15 @@ import PdfViewport from './PdfRenderer/PdfViewport'
 
 import styles from './PdfPlayground.module.css'
 
-const url = `${process.env.PUBLIC_URL}/example.pdf`
-
 class PdfPlayground extends Component {
   state = {
     data: null,
     scale: 1
   }
 
-  loadPdf = async () => {
+  loadPdf = async url => {
     const pdfBytes = await fetch(url).then(res => res.arrayBuffer())
-    this.setState({
-      data: pdfBytes
-    })
+    this.onPdfLoad(pdfBytes)
     console.log('original loaded')
   }
 
@@ -71,12 +67,16 @@ class PdfPlayground extends Component {
     }))
   }
 
+  componentDidMount() {
+    const { preloadUrl } = this.props
+    if (preloadUrl && this.state.data === null) {
+      this.loadPdf(preloadUrl)
+    }
+  }
+
   render() {
     console.log('[playground render] scale:', this.state.scale)
 
-    if (this.state.data === null) {
-      this.loadPdf()
-    }
     return (
       <div className={styles.screenViewport}>
         <h1>PDF Playground</h1>

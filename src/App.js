@@ -6,7 +6,7 @@ import PdfPlayground from './PdfPlayground/PdfPlayground'
 function App() {
   return (
     <div className="App">
-      <PdfPlayground />
+      <PdfPlayground preloadUrl={`${process.env.REACT_APP_PRELOAD_DOCUMENT}`} />
     </div>
   )
 }
