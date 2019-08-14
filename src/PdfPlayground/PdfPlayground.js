@@ -13,12 +13,6 @@ class PdfPlayground extends Component {
     scale: 1
   }
 
-  loadPdf = async url => {
-    const pdfBytes = await fetch(url).then(res => res.arrayBuffer())
-    this.onPdfLoad(pdfBytes)
-    console.log('original loaded')
-  }
-
   drawRect = async (x, y) => {
     console.log('viewport pos:', [x, y])
     const pdfDoc = await PDFDocument.load(this.state.data)
@@ -65,13 +59,6 @@ class PdfPlayground extends Component {
     this.setState(state => ({
       scale: state.scale + amount
     }))
-  }
-
-  componentDidMount() {
-    const { preloadUrl } = this.props
-    if (preloadUrl && this.state.data === null) {
-      this.loadPdf(preloadUrl)
-    }
   }
 
   render() {
