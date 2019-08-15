@@ -25,6 +25,7 @@ class PdfLoader extends Component {
           onError={this.onFilesError}
           accepts={['.pdf']}
           clickable
+          maxFiles={1}
         >
           Drop a file here or click to upload
         </Files>

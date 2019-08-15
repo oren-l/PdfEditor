@@ -11,7 +11,8 @@ import styles from './PdfPlayground.module.css'
 class PdfPlayground extends Component {
   state = {
     data: null,
-    scale: 1
+    scale: 1,
+    showLoadDialog: true
   }
 
   drawRect = async (x, y) => {
@@ -53,7 +54,13 @@ class PdfPlayground extends Component {
   }
 
   onPdfLoad = data => {
-    this.setState({ data })
+    this.setState({ data, showLoadDialog: false })
+  }
+
+  onOpenLoadDialog = () => {
+    this.setState({
+      showLoadDialog: true
+    })
   }
 
   onZoomChange = amount => {
@@ -68,7 +75,9 @@ class PdfPlayground extends Component {
     return (
       <div className={styles.screenViewport}>
         <h1>PDF Playground</h1>
-        <PdfLoader onLoad={this.onPdfLoad} />
+        {this.state.showLoadDialog ? (
+          <PdfLoader onLoad={this.onPdfLoad} />
+        ) : null}
         <p>Click on the document to add small rectangles to it</p>
         <div className={styles.editorArea}>
           <Toolbar
@@ -76,6 +85,7 @@ class PdfPlayground extends Component {
             scale={this.state.scale}
             onZoomChange={this.onZoomChange}
             onDownload={this.onDownload}
+            onLoad={this.onOpenLoadDialog}
           />
           <PdfViewport
             data={this.state.data}
