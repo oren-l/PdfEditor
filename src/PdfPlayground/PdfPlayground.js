@@ -8,10 +8,12 @@ import Toolbar from './Toolbar/Toolbar'
 
 import styles from './PdfPlayground.module.css'
 
+const initialScale = 1
+
 class PdfPlayground extends Component {
   state = {
     data: null,
-    scale: 1,
+    scale: initialScale,
     showLoadDialog: true
   }
 
@@ -54,7 +56,7 @@ class PdfPlayground extends Component {
   }
 
   onPdfLoad = data => {
-    this.setState({ data, showLoadDialog: false })
+    this.setState({ data, showLoadDialog: false, scale: initialScale })
   }
 
   onOpenLoadDialog = () => {
