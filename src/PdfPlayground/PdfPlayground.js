@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver'
 
 import PdfLoader from '../PdfLoader/PdfLoader'
 import PdfViewport from './PdfRenderer/PdfViewport'
+import Toolbar from './Toolbar/Toolbar'
 
 import styles from './PdfPlayground.module.css'
 
@@ -45,7 +46,7 @@ class PdfPlayground extends Component {
     console.log('modified loaded')
   }
 
-  download = () => {
+  onDownload = () => {
     const blob = new Blob([this.state.data], { type: 'application/pdf' })
     console.log('request to download file accepted', blob)
     saveAs(blob, 'output.pdf')
@@ -70,19 +71,11 @@ class PdfPlayground extends Component {
         <PdfLoader onLoad={this.onPdfLoad} />
         <p>Click on the document to add small rectangles to it</p>
         <div className={styles.editorArea}>
-          <div className={styles.toolbar}>
-            <div className={styles.scale}>
-              <button onClick={() => this.onZoomChange(+0.1)}>+</button>
-              <button onClick={() => this.onZoomChange(-0.1)}>-</button>
-              <input
-                type="text"
-                disabled
-                value={`${(this.state.scale * 100).toFixed(0)}%`}
-              />
-            </div>
-
-            <button onClick={this.download}>Download</button>
-          </div>
+          <Toolbar
+            scale={this.state.scale}
+            onZoomChange={this.onZoomChange}
+            onDownload={this.onDownload}
+          />
           <PdfViewport
             data={this.state.data}
             pageNum={1}

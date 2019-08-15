@@ -14,32 +14,6 @@
   background-color: #333;
 }
 
-.toolbar {
-  display: flex;
-  height: 40px;
-  padding: 5px 5px;
-  box-sizing: border-box;
-}
-
-.toolbar button {
-  cursor: pointer;
-}
-
-.toolbar .scale {
-  display: flex;
-  margin: 0 5px;
-  border: 1px solid #666;
-}
-
-.toolbar .scale > * {
-  margin: 1px;
-}
-
-.toolbar .scale input {
-  width: 4em;
-  text-align: center;
-}
-
 .pdfViewport {
   position: absolute;
   top: 40px;
