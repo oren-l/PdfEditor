@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './Toolbar.module.css'
 
-function toolbar({ disabled, scale, onZoomChange, onDownload }) {
+function toolbar({ disabled, scale, onZoomChange, onDownload, onLoad }) {
   return (
     <div className={styles.toolbar}>
       <div className={styles.scale}>
@@ -15,6 +15,9 @@ function toolbar({ disabled, scale, onZoomChange, onDownload }) {
         <input type="text" disabled value={`${(scale * 100).toFixed(0)}%`} />
       </div>
 
+      <button disabled={disabled} onClick={onLoad}>
+        Load
+      </button>
       <button disabled={disabled} onClick={onDownload}>
         Download
       </button>

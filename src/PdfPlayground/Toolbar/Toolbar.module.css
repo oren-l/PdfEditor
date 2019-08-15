@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.toolbar > * {
+  margin: 0 2px;
+}
+
 .toolbar .scale {
   display: flex;
   margin: 0 5px;

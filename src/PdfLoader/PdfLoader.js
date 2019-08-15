@@ -18,13 +18,14 @@ class PdfLoader extends Component {
 
   render() {
     return (
-      <div className={styles.container}>
+      <div className={styles.dropzone}>
         <Files
-          className={styles.dropzone}
+          className={styles.inner}
           onChange={this.onFilesChange}
           onError={this.onFilesError}
           accepts={['.pdf']}
           clickable
+          maxFiles={1}
         >
           Drop a file here or click to upload
         </Files>

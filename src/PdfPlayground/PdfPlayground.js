@@ -5,13 +5,17 @@ import { saveAs } from 'file-saver'
 import PdfLoader from '../PdfLoader/PdfLoader'
 import PdfViewport from './PdfRenderer/PdfViewport'
 import Toolbar from './Toolbar/Toolbar'
+import EscKeyHandler from '../EscKeyHandler/EscKeyHandler'
 
 import styles from './PdfPlayground.module.css'
+
+const initialScale = 1
 
 class PdfPlayground extends Component {
   state = {
     data: null,
-    scale: 1
+    scale: initialScale,
+    showLoadDialog: true
   }
 
   drawRect = async (x, y) => {
@@ -53,7 +57,13 @@ class PdfPlayground extends Component {
   }
 
   onPdfLoad = data => {
-    this.setState({ data })
+    this.setState({ data, showLoadDialog: false, scale: initialScale })
+  }
+
+  onOpenLoadDialog = () => {
+    this.setState({
+      showLoadDialog: true
+    })
   }
 
   onZoomChange = amount => {
@@ -62,13 +72,20 @@ class PdfPlayground extends Component {
     }))
   }
 
+  onEsc = () => {
+    if (this.state.data !== null && this.state.showLoadDialog === true) {
+      this.setState({ showLoadDialog: false })
+    }
+  }
+
   render() {
     console.log('[playground render] scale:', this.state.scale)
 
     return (
       <div className={styles.screenViewport}>
+        <EscKeyHandler onClick={this.onEsc} />
         <h1>PDF Playground</h1>
-        <PdfLoader onLoad={this.onPdfLoad} />
+
         <p>Click on the document to add small rectangles to it</p>
         <div className={styles.editorArea}>
           <Toolbar
@@ -76,14 +93,19 @@ class PdfPlayground extends Component {
             scale={this.state.scale}
             onZoomChange={this.onZoomChange}
             onDownload={this.onDownload}
+            onLoad={this.onOpenLoadDialog}
           />
-          <PdfViewport
-            data={this.state.data}
-            pageNum={1}
-            scale={this.state.scale}
-            onClick={(event, { x, y }) => this.drawRect(x, y)}
-            className={styles.pdfViewport}
-          />
+          <div className={styles.pdfViewportArea}>
+            {this.state.showLoadDialog ? (
+              <PdfLoader onLoad={this.onPdfLoad} />
+            ) : null}
+            <PdfViewport
+              data={this.state.data}
+              pageNum={1}
+              scale={this.state.scale}
+              onClick={(event, { x, y }) => this.drawRect(x, y)}
+            />
+          </div>
         </div>
       </div>
     )
