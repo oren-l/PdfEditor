@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver'
 import PdfLoader from '../PdfLoader/PdfLoader'
 import PdfViewport from './PdfRenderer/PdfViewport'
 import Toolbar from './Toolbar/Toolbar'
+import EscKeyHandler from '../EscKeyHandler/EscKeyHandler'
 
 import styles from './PdfPlayground.module.css'
 
@@ -71,11 +72,18 @@ class PdfPlayground extends Component {
     }))
   }
 
+  onEsc = () => {
+    if (this.state.data !== null && this.state.showLoadDialog === true) {
+      this.setState({ showLoadDialog: false })
+    }
+  }
+
   render() {
     console.log('[playground render] scale:', this.state.scale)
 
     return (
       <div className={styles.screenViewport}>
+        <EscKeyHandler onClick={this.onEsc} />
         <h1>PDF Playground</h1>
 
         <p>Click on the document to add small rectangles to it</p>
