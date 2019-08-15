@@ -72,6 +72,7 @@ class PdfPlayground extends Component {
         <p>Click on the document to add small rectangles to it</p>
         <div className={styles.editorArea}>
           <Toolbar
+            disabled={this.state.data === null}
             scale={this.state.scale}
             onZoomChange={this.onZoomChange}
             onDownload={this.onDownload}

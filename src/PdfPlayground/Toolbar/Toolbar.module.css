@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-.toolbar button {
+.toolbar button:not([disabled]) {
   cursor: pointer;
 }
 
