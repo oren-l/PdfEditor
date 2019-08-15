@@ -18,9 +18,9 @@ class PdfLoader extends Component {
 
   render() {
     return (
-      <div className={styles.container}>
+      <div className={styles.dropzone}>
         <Files
-          className={styles.dropzone}
+          className={styles.inner}
           onChange={this.onFilesChange}
           onError={this.onFilesError}
           accepts={['.pdf']}

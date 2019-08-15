@@ -75,9 +75,7 @@ class PdfPlayground extends Component {
     return (
       <div className={styles.screenViewport}>
         <h1>PDF Playground</h1>
-        {this.state.showLoadDialog ? (
-          <PdfLoader onLoad={this.onPdfLoad} />
-        ) : null}
+
         <p>Click on the document to add small rectangles to it</p>
         <div className={styles.editorArea}>
           <Toolbar
@@ -87,13 +85,17 @@ class PdfPlayground extends Component {
             onDownload={this.onDownload}
             onLoad={this.onOpenLoadDialog}
           />
-          <PdfViewport
-            data={this.state.data}
-            pageNum={1}
-            scale={this.state.scale}
-            onClick={(event, { x, y }) => this.drawRect(x, y)}
-            className={styles.pdfViewport}
-          />
+          <div className={styles.pdfViewportArea}>
+            {this.state.showLoadDialog ? (
+              <PdfLoader onLoad={this.onPdfLoad} />
+            ) : null}
+            <PdfViewport
+              data={this.state.data}
+              pageNum={1}
+              scale={this.state.scale}
+              onClick={(event, { x, y }) => this.drawRect(x, y)}
+            />
+          </div>
         </div>
       </div>
     )

@@ -1,16 +1,25 @@
-.container {
-  margin: 10px 20%;
-  padding: 5px;
-  background-color: #e1f5fe;
+.dropzone {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  background-color: #b3e5fc;
 }
 
-.dropzone {
-  cursor: pointer;
+.dropzone .inner {
   border: 2px dashed #01579b;
-  background-color: #b3e5fc;
-  height: 200px;
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #01579b;
+  font-size: 2em;
 }
