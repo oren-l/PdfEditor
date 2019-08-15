@@ -83,15 +83,13 @@ class PdfPlayground extends Component {
 
             <button onClick={this.download}>Download</button>
           </div>
-          {this.state.data !== null ? (
-            <PdfViewport
-              data={this.state.data}
-              pageNum={1}
-              scale={this.state.scale}
-              onClick={(event, { x, y }) => this.drawRect(x, y)}
-              className={styles.pdfViewport}
-            />
-          ) : null}
+          <PdfViewport
+            data={this.state.data}
+            pageNum={1}
+            scale={this.state.scale}
+            onClick={(event, { x, y }) => this.drawRect(x, y)}
+            className={styles.pdfViewport}
+          />
         </div>
       </div>
     )

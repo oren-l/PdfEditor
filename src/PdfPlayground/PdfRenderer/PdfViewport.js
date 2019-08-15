@@ -16,13 +16,17 @@ function PdfViewport({
   return (
     <div className={`${className} ${styles.viewport}`} style={style}>
       <div className={styles.page}>
-        <PdfDoc data={data}>
-          {doc => (
-            <PdfPage document={doc} pageNum={pageNum}>
-              {page => <PdfCanvas page={page} scale={scale} {...otherProps} />}
-            </PdfPage>
-          )}
-        </PdfDoc>
+        {data !== null ? (
+          <PdfDoc data={data}>
+            {doc => (
+              <PdfPage document={doc} pageNum={pageNum}>
+                {page => (
+                  <PdfCanvas page={page} scale={scale} {...otherProps} />
+                )}
+              </PdfPage>
+            )}
+          </PdfDoc>
+        ) : null}
       </div>
     </div>
   )
