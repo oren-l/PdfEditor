@@ -72,18 +72,16 @@ class PdfPlayground extends Component {
     }))
   }
 
-  onEsc = () => {
-    if (this.state.data !== null && this.state.showLoadDialog === true) {
-      this.setState({ showLoadDialog: false })
-    }
+  onCloseLoadDialog = () => {
+    this.setState({ showLoadDialog: false })
   }
 
   render() {
-    console.log('[playground render] scale:', this.state.scale)
-
+    const isReload =
+      this.state.data !== null && this.state.showLoadDialog === true
     return (
       <div className={styles.screenViewport}>
-        <EscKeyHandler onClick={this.onEsc} />
+        {isReload ? <EscKeyHandler onClick={this.onCloseLoadDialog} /> : null}
         <h1>PDF Playground</h1>
 
         <p>Click on the document to add small rectangles to it</p>
