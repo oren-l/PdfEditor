@@ -27,3 +27,8 @@
   width: 4em;
   text-align: center;
 }
+
+.toolbar .text {
+  color: white;
+  margin: auto 16px;
+}

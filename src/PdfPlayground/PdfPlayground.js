@@ -105,11 +105,11 @@ class PdfPlayground extends Component {
         {isReload ? <EscKeyHandler onClick={this.onCloseLoadDialog} /> : null}
         <h1>PDF Playground</h1>
 
-        <p>Click on the document to add small rectangles to it</p>
         <div className={styles.editorArea}>
           <Toolbar
             disabled={this.state.data === null}
             scale={this.state.scale}
+            counter={this.state.counter}
             onZoomChange={this.onZoomChange}
             onDownload={this.onDownload}
             onLoad={this.onOpenLoadDialog}
