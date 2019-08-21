@@ -2,7 +2,19 @@ import React from 'react'
 
 import styles from './Toolbar.module.css'
 
-function toolbar({ disabled, scale, onZoomChange, onDownload, onLoad }) {
+function toolbar({
+  disabled,
+  scale,
+  counter,
+  onZoomChange,
+  onDownload,
+  onLoad
+}) {
+  const runningLabelText = disabled ? null : (
+    <div className={styles.text}>
+      Place next running label: {`{${counter}}`}
+    </div>
+  )
   return (
     <div className={styles.toolbar}>
       <div className={styles.scale}>
@@ -21,6 +33,7 @@ function toolbar({ disabled, scale, onZoomChange, onDownload, onLoad }) {
       <button disabled={disabled} onClick={onDownload}>
         Download
       </button>
+      {runningLabelText}
     </div>
   )
 }

@@ -10,35 +10,27 @@ import EscKeyHandler from '../EscKeyHandler/EscKeyHandler'
 import styles from './PdfPlayground.module.css'
 
 const initialScale = 1
+const initialCounter = 2
 
 class PdfPlayground extends Component {
   state = {
     data: null,
     scale: initialScale,
-    showLoadDialog: true
+    showLoadDialog: true,
+    counter: initialCounter
   }
 
   drawRect = async (x, y) => {
-    console.log('viewport pos:', [x, y])
     const pdfDoc = await PDFDocument.load(this.state.data)
-    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
     const pages = pdfDoc.getPages()
     const firstPage = pages[0]
-    const { width, height } = firstPage.getSize()
-    // firstPage.drawText('This text was added with JavaScript!', {
-    //   x,
-    //   y: height - (y - 80),
-    //   size: 25,
-    //   font: helveticaFont,
-    //   color: rgb(0.95, 0.1, 0.1),
-    //   rotate: degrees(-45)
-    // })
+    const { height } = firstPage.getSize()
+
     const size = 20
     firstPage.drawSquare({
       x: x / this.state.scale,
       y: height - y / this.state.scale - size,
       size,
-      // rotate: degrees(-15),
       borderWidth: 2,
       borderColor: grayscale(0.5),
       color: rgb(0.75, 0.2, 0.2)
@@ -50,6 +42,30 @@ class PdfPlayground extends Component {
     console.log('modified loaded')
   }
 
+  drawText = async (x, y) => {
+    const pdfDoc = await PDFDocument.load(this.state.data)
+    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+    const pages = pdfDoc.getPages()
+    const firstPage = pages[0]
+    const { height } = firstPage.getSize()
+    const size = 20
+
+    firstPage.drawText(`{${this.state.counter}}`, {
+      x: x / this.state.scale,
+      y: height - y / this.state.scale - size,
+      size,
+      font: helveticaFont,
+      color: rgb(0.95, 0.1, 0.1)
+      // rotate: degrees(-45)
+    })
+    const modifiedPdfBytes = await pdfDoc.save()
+    this.setState(state => ({
+      data: modifiedPdfBytes,
+      counter: state.counter + 1
+    }))
+    console.log('modified loaded')
+  }
+
   onDownload = () => {
     const blob = new Blob([this.state.data], { type: 'application/pdf' })
     console.log('request to download file accepted', blob)
@@ -57,7 +73,12 @@ class PdfPlayground extends Component {
   }
 
   onPdfLoad = data => {
-    this.setState({ data, showLoadDialog: false, scale: initialScale })
+    this.setState({
+      data,
+      showLoadDialog: false,
+      scale: initialScale,
+      counter: initialCounter
+    })
   }
 
   onOpenLoadDialog = () => {
@@ -84,11 +105,11 @@ class PdfPlayground extends Component {
         {isReload ? <EscKeyHandler onClick={this.onCloseLoadDialog} /> : null}
         <h1>PDF Playground</h1>
 
-        <p>Click on the document to add small rectangles to it</p>
         <div className={styles.editorArea}>
           <Toolbar
             disabled={this.state.data === null}
             scale={this.state.scale}
+            counter={this.state.counter}
             onZoomChange={this.onZoomChange}
             onDownload={this.onDownload}
             onLoad={this.onOpenLoadDialog}
@@ -101,7 +122,7 @@ class PdfPlayground extends Component {
               data={this.state.data}
               pageNum={1}
               scale={this.state.scale}
-              onClick={(event, { x, y }) => this.drawRect(x, y)}
+              onClick={(event, { x, y }) => this.drawText(x, y)}
             />
           </div>
         </div>
