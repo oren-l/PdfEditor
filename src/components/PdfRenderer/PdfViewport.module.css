@@ -13,3 +13,14 @@
   border: 9px solid transparent;
   overflow: visible;
 }
+
+.page .overlay {
+  position: relative;
+}
+
+.page .overlay .element {
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  color: red;
+}

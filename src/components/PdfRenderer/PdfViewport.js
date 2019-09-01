@@ -11,6 +11,7 @@ function PdfViewport({
   scale,
   className,
   style,
+  overlayItems,
   ...otherProps
 }) {
   return (
@@ -21,7 +22,22 @@ function PdfViewport({
             {doc => (
               <PdfPage document={doc} pageNum={pageNum}>
                 {page => (
-                  <PdfCanvas page={page} scale={scale} {...otherProps} />
+                  <div className={styles.overlay}>
+                    {overlayItems.map(item => (
+                      <div
+                        className={styles.element}
+                        style={{
+                          left: `${item.position.x * scale}px`,
+                          top: `${item.position.y * scale}px`,
+                          fontSize: `${item.size * scale}px`
+                        }}
+                        key={item.id}
+                      >
+                        {item.content}
+                      </div>
+                    ))}
+                    <PdfCanvas page={page} scale={scale} {...otherProps} />
+                  </div>
                 )}
               </PdfPage>
             )}
