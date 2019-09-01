@@ -1,7 +1,6 @@
 import React from 'react'
 import './App.css'
 
-import PdfPlayground from '../PdfPlayground/PdfPlayground'
 import FileProvider from '../context/file-context'
 import PdfEditor from '../components/PdfEditor/PdfEditor'
 
