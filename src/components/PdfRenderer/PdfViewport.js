@@ -13,7 +13,7 @@ function PdfViewport({
   overlayItems,
   className,
   style,
-  ...otherProps
+  onClick
 }) {
   return (
     <div className={`${className} ${styles.viewport}`} style={style}>
@@ -36,7 +36,7 @@ function PdfViewport({
                         />
                       ))}
                     </div>
-                    <PdfCanvas page={page} scale={scale} {...otherProps} />
+                    <PdfCanvas page={page} scale={scale} onClick={onClick} />
                   </React.Fragment>
                 )}
               </PdfPage>

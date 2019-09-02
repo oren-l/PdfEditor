@@ -46,18 +46,17 @@ class PdfCanvas extends Component {
   }
 
   render() {
-    const { page, scale, onClick, ...otherProps } = this.props
-    if (onClick instanceof Function) {
-      otherProps.onClick = event => {
-        return this.props.onClick(
-          event,
-          this.getMousePos(event.clientX, event.clientY)
-        )
-      }
-    }
-    otherProps.style = otherProps.style || {}
-    otherProps.style.cursor = 'crosshair'
-    return <canvas ref={this.canvasRef} {...otherProps} />
+    const { onClick } = this.props
+
+    return (
+      <canvas
+        ref={this.canvasRef}
+        onClick={event =>
+          onClick(event, this.getMousePos(event.clientX, event.clientY))
+        }
+        style={{ cursor: 'crosshair' }}
+      />
+    )
   }
 }
 
