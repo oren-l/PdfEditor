@@ -2,6 +2,7 @@ import React from 'react'
 import PdfDoc from './PdfDoc'
 import PdfPage from './PdfPage'
 import PdfCanvas from './PdfCanvas'
+import OverlayItem from './OverlayItem'
 
 import styles from './PdfViewport.module.css'
 
@@ -9,9 +10,9 @@ function PdfViewport({
   data,
   pageNum,
   scale,
+  overlayItems,
   className,
   style,
-  overlayItems,
   ...otherProps
 }) {
   return (
@@ -22,22 +23,21 @@ function PdfViewport({
             {doc => (
               <PdfPage document={doc} pageNum={pageNum}>
                 {page => (
-                  <div className={styles.overlay}>
-                    {overlayItems.map(item => (
-                      <div
-                        className={styles.element}
-                        style={{
-                          left: `${item.position.x * scale}px`,
-                          top: `${item.position.y * scale}px`,
-                          fontSize: `${item.size * scale}px`
-                        }}
-                        key={item.id}
-                      >
-                        {item.content}
-                      </div>
-                    ))}
+                  <React.Fragment>
+                    <div className={styles.overlay}>
+                      {overlayItems.map(item => (
+                        <OverlayItem
+                          key={item.id}
+                          className={styles.item}
+                          position={item.position}
+                          size={item.size}
+                          content={item.content}
+                          scale={scale}
+                        />
+                      ))}
+                    </div>
                     <PdfCanvas page={page} scale={scale} {...otherProps} />
-                  </div>
+                  </React.Fragment>
                 )}
               </PdfPage>
             )}
