@@ -12,12 +12,13 @@ function placeRunningCounter(
   addModification,
   incrementCounter
 ) {
+  const size = 20
   addModification({
     position: {
-      x: position.x / scale,
-      y: position.y / scale
+      x: position.x / scale - size / 2,
+      y: position.y / scale - size / 2
     },
-    size: 20,
+    size,
     content: `{${counter}}`
   })
   incrementCounter()
@@ -48,8 +49,8 @@ function PdfViewportController({ children }) {
       changeMod(id, mod => ({
         ...mod,
         position: {
-          x: position.x / scale,
-          y: position.y / scale
+          x: position.x / scale - mod.size / 2,
+          y: position.y / scale - mod.size / 2
         }
       }))
     }
