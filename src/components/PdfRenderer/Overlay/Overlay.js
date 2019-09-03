@@ -25,7 +25,6 @@ function Overlay({ items, scale, onItemMove }) {
           size={item.size}
           content={item.content}
           scale={scale}
-          draggable
           onDragEnd={event =>
             onItemMove(
               event,
