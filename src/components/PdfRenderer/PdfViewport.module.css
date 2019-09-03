@@ -16,11 +16,12 @@
 }
 
 .page .overlay {
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .page .overlay .item {
   position: absolute;
   user-select: none;
   color: red;
+  cursor: grab;
 }

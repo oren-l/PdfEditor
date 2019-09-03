@@ -1,6 +1,13 @@
 import React from 'react'
 
-function OverlayItem({ position, size, content, scale, className }) {
+function OverlayItem({
+  position,
+  size,
+  content,
+  scale,
+  className,
+  ...otherProps
+}) {
   return (
     <div
       className={className}
@@ -9,6 +16,7 @@ function OverlayItem({ position, size, content, scale, className }) {
         top: `${position.y * scale}px`,
         fontSize: `${size * scale}px`
       }}
+      {...otherProps}
     >
       {content}
     </div>

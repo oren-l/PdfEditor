@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import PdfDoc from './PdfDoc'
 import PdfPage from './PdfPage'
 import PdfCanvas from './PdfCanvas'
 import OverlayItem from './OverlayItem'
 
 import styles from './PdfViewport.module.css'
+
+function getRelativeMousePos(element, event) {
+  const { left, top } = element.getBoundingClientRect()
+  return {
+    x: event.clientX - left,
+    y: event.clientY - top
+  }
+}
 
 function PdfViewport({
   data,
@@ -13,8 +21,10 @@ function PdfViewport({
   overlayItems,
   className,
   style,
-  onClick
+  onClick,
+  onDragEnd
 }) {
+  const overlayRef = useRef(null)
   return (
     <div className={`${className} ${styles.viewport}`} style={style}>
       <div className={styles.page}>
@@ -24,7 +34,7 @@ function PdfViewport({
               <PdfPage document={doc} pageNum={pageNum}>
                 {page => (
                   <React.Fragment>
-                    <div className={styles.overlay}>
+                    <div ref={overlayRef} className={styles.overlay}>
                       {overlayItems.map(item => (
                         <OverlayItem
                           key={item.id}
@@ -33,6 +43,20 @@ function PdfViewport({
                           size={item.size}
                           content={item.content}
                           scale={scale}
+                          draggable
+                          // onDragStart={event => {
+                          //   console.log(`item #${item.id} drag`, [
+                          //     event.clientX,
+                          //     event.clientY
+                          //   ])
+                          // }}
+                          onDragEnd={event =>
+                            onDragEnd(
+                              event,
+                              getRelativeMousePos(overlayRef.current, event),
+                              item.id
+                            )
+                          }
                         />
                       ))}
                     </div>

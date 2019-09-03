@@ -27,7 +27,9 @@ function PdfViewportController({ children }) {
   const { data, setData: setFileData } = useContext(FileContext)
   const { scale } = useContext(ViewportContext)
   const { counter, incrementCounter } = useContext(CounterContext)
-  const { modList, addMod: addModification } = useContext(ModificationContext)
+  const { modList, addMod: addModification, changeMod } = useContext(
+    ModificationContext
+  )
 
   return children({
     data,
@@ -41,7 +43,16 @@ function PdfViewportController({ children }) {
         position,
         addModification,
         incrementCounter
-      )
+      ),
+    onDragEnd: (event, position, id) => {
+      changeMod(id, mod => ({
+        ...mod,
+        position: {
+          x: position.x / scale,
+          y: position.y / scale
+        }
+      }))
+    }
   })
 }
 
