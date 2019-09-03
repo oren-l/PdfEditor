@@ -12,4 +12,16 @@
   display: inline-block;
   border: 9px solid transparent;
   overflow: visible;
+  position: relative;
+}
+
+.page .overlay {
+  /* pointer-events: none; */
+}
+
+.page .overlay .item {
+  position: absolute;
+  user-select: none;
+  color: red;
+  cursor: grab;
 }
