@@ -23,5 +23,5 @@
   position: absolute;
   user-select: none;
   color: red;
-  cursor: grab;
+  cursor: pointer;
 }
