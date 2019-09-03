@@ -1,18 +1,10 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import PdfDoc from './PdfDoc'
 import PdfPage from './PdfPage'
 import PdfCanvas from './PdfCanvas'
-import OverlayItem from './OverlayItem'
+import Overlay from './Overlay/Overlay'
 
 import styles from './PdfViewport.module.css'
-
-function getRelativeMousePos(element, event) {
-  const { left, top } = element.getBoundingClientRect()
-  return {
-    x: event.clientX - left,
-    y: event.clientY - top
-  }
-}
 
 function PdfViewport({
   data,
@@ -22,9 +14,8 @@ function PdfViewport({
   className,
   style,
   onClick,
-  onDragEnd
+  onItemMove
 }) {
-  const overlayRef = useRef(null)
   return (
     <div className={`${className} ${styles.viewport}`} style={style}>
       <div className={styles.page}>
@@ -34,32 +25,11 @@ function PdfViewport({
               <PdfPage document={doc} pageNum={pageNum}>
                 {page => (
                   <React.Fragment>
-                    <div ref={overlayRef} className={styles.overlay}>
-                      {overlayItems.map(item => (
-                        <OverlayItem
-                          key={item.id}
-                          className={styles.item}
-                          position={item.position}
-                          size={item.size}
-                          content={item.content}
-                          scale={scale}
-                          draggable
-                          // onDragStart={event => {
-                          //   console.log(`item #${item.id} drag`, [
-                          //     event.clientX,
-                          //     event.clientY
-                          //   ])
-                          // }}
-                          onDragEnd={event =>
-                            onDragEnd(
-                              event,
-                              getRelativeMousePos(overlayRef.current, event),
-                              item.id
-                            )
-                          }
-                        />
-                      ))}
-                    </div>
+                    <Overlay
+                      items={overlayItems}
+                      scale={scale}
+                      onItemMove={onItemMove}
+                    />
                     <PdfCanvas page={page} scale={scale} onClick={onClick} />
                   </React.Fragment>
                 )}

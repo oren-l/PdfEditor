@@ -45,7 +45,7 @@ function PdfViewportController({ children }) {
         addModification,
         incrementCounter
       ),
-    onDragEnd: (event, position, id) => {
+    onItemMove: (event, position, id) => {
       changeMod(id, mod => ({
         ...mod,
         position: {
