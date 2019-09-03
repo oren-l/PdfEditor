@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 import OverlayItem from './OverlayItem'
 
@@ -14,6 +14,7 @@ function getRelativeMousePos(element, event) {
 
 function Overlay({ items, scale, onItemMove }) {
   const overlayRef = useRef(null)
+  const [selectedItemId, setSelectedItemId] = useState(null)
   return (
     <div ref={overlayRef} className={styles.overlay}>
       {items.map(item => (
@@ -32,6 +33,8 @@ function Overlay({ items, scale, onItemMove }) {
               item.id
             )
           }
+          isSelected={item.id === selectedItemId}
+          onClick={() => setSelectedItemId(item.id)}
         />
       ))}
     </div>
