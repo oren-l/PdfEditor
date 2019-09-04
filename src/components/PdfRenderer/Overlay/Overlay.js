@@ -16,7 +16,16 @@ function Overlay({ items, scale, onItemMove }) {
   const overlayRef = useRef(null)
   const [selectedItemId, setSelectedItemId] = useState(null)
   return (
-    <div ref={overlayRef} className={styles.overlay}>
+    <div
+      ref={overlayRef}
+      className={styles.overlay}
+      style={{
+        position: selectedItemId !== null ? 'absolute' : null
+      }}
+      onClick={() => {
+        setSelectedItemId(null)
+      }}
+    >
       {items.map(item => (
         <OverlayItem
           key={item.id}
@@ -33,7 +42,10 @@ function Overlay({ items, scale, onItemMove }) {
             )
           }
           isSelected={item.id === selectedItemId}
-          onClick={() => setSelectedItemId(item.id)}
+          onClick={event => {
+            setSelectedItemId(item.id)
+            event.stopPropagation()
+          }}
         />
       ))}
     </div>
