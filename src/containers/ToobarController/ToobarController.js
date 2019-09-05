@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { saveAs } from 'file-saver'
-import { degrees, PDFDocument, rgb, grayscale, StandardFonts } from 'pdf-lib'
+import { PDFDocument, rgb } from 'pdf-lib'
+import fontkit from '@pdf-lib/fontkit'
 
 import { FileContext } from '../../context/file-context'
 import { ViewportContext } from '../../context/viewport-context'
@@ -9,7 +10,11 @@ import { ModificationContext } from '../../context/modification-context'
 
 async function download(fileData, modificationList) {
   const pdfDoc = await PDFDocument.load(fileData)
-  const font = await pdfDoc.embedFont(StandardFonts.Helvetica)
+  const fontUrl = `${process.env.PUBLIC_URL}/fonts/Roboto/Roboto-Regular.ttf`
+  pdfDoc.registerFontkit(fontkit)
+  const fontBytes = await fetch(fontUrl).then(res => res.arrayBuffer())
+  console.log('font loaded: ', fontBytes)
+  const font = await pdfDoc.embedFont(fontBytes)
   const [firstPage] = pdfDoc.getPages()
   const { height } = firstPage.getSize()
   modificationList.forEach(item => {
@@ -18,7 +23,7 @@ async function download(fileData, modificationList) {
       y: height - (item.position.y + item.size),
       size: item.size,
       font,
-      color: rgb(1, 0, 0)
+      color: rgb(0, 0, 1)
     })
   })
   const modifiedData = await pdfDoc.save()

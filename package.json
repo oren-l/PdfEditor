@@ -5,6 +5,7 @@
   "homepage": "https://oren-l.github.io/PdfEditor",
   "dependencies": {
     "@bundled-es-modules/pdfjs-dist": "2.1.266-rc",
+    "@pdf-lib/fontkit": "^0.0.4",
     "file-saver": "^2.0.2",
     "pdf-lib": "^1.0.1",
     "react": "^16.8.6",

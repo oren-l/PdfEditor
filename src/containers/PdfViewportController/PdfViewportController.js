@@ -12,14 +12,14 @@ function placeRunningCounter(
   addModification,
   incrementCounter
 ) {
-  const size = 20
+  const size = 12
   addModification({
     position: {
       x: position.x / scale - size / 2,
       y: position.y / scale - size / 2
     },
     size,
-    content: `{${counter}}`
+    content: `(${counter})`
   })
   incrementCounter()
 }
