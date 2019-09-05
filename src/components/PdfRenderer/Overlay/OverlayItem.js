@@ -21,6 +21,7 @@ function OverlayItem({
         cursor: isSelected ? 'grab' : null
       }}
       draggable={isSelected}
+      title={isSelected ? 'Press <Delete> to remove this' : null}
       {...otherProps}
     >
       {template(value)}

@@ -7,8 +7,8 @@ export const ModificationContext = createContext({
   modList: initialModList,
   resetModList: () => {},
   addMod: () => {},
-  changeMod: (id, changeFunc) => {}
-  // remove: () => {}
+  changeMod: (id, changeFunc) => {},
+  removeMod: id => {}
 })
 
 export default ({ children }) => {
@@ -38,14 +38,21 @@ export default ({ children }) => {
     setModList(changedModList)
   }
 
-  // TODO: remove mod
+  const removeMod = id => {
+    const changedModList = modList
+      .filter(mod => mod.id !== id)
+      .map(mod => (mod.id < id ? mod : { ...mod, value: mod.value - 1 }))
+    setModList(changedModList)
+  }
+
   return (
     <ModificationContext.Provider
       value={{
         modList,
         resetModList,
         addMod,
-        changeMod
+        changeMod,
+        removeMod
       }}
     >
       {children}
