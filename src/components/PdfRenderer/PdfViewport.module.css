@@ -26,4 +26,7 @@
   color: blue;
   cursor: pointer;
   font-family: 'Roboto';
+  min-width: 20px;
+  min-height: 20px;
+  outline-offset: 0.5em;
 }
