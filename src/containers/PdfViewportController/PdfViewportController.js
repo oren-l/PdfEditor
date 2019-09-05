@@ -19,7 +19,7 @@ function placeRunningCounter(
       y: position.y / scale - size / 2
     },
     size,
-    content: `{${counter}}`
+    content: `(${counter})`
   })
   incrementCounter()
 }
