@@ -23,7 +23,7 @@ async function download(fileData, modificationList) {
       y: height - (item.position.y + item.size),
       size: item.size,
       font,
-      color: rgb(1, 0, 0)
+      color: rgb(0, 0, 1)
     })
   })
   const modifiedData = await pdfDoc.save()

@@ -23,7 +23,7 @@
 .page .overlay .item {
   position: absolute;
   user-select: none;
-  color: red;
+  color: blue;
   cursor: pointer;
   font-family: 'Roboto';
 }

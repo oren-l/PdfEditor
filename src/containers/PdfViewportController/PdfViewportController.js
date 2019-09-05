@@ -12,7 +12,7 @@ function placeRunningCounter(
   addModification,
   incrementCounter
 ) {
-  const size = 20
+  const size = 12
   addModification({
     position: {
       x: position.x / scale - size / 2,
