@@ -13,13 +13,15 @@ function placeRunningCounter(
   incrementCounter
 ) {
   const size = 12
+  const template = value => `(${value})`
   addModification({
     position: {
       x: position.x / scale - size / 2,
       y: position.y / scale - size / 2
     },
     size,
-    content: `(${counter})`
+    value: counter,
+    template
   })
   incrementCounter()
 }

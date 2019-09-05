@@ -18,7 +18,7 @@ async function download(fileData, modificationList) {
   const [firstPage] = pdfDoc.getPages()
   const { height } = firstPage.getSize()
   modificationList.forEach(item => {
-    firstPage.drawText(item.content, {
+    firstPage.drawText(item.template(item.value), {
       x: item.position.x,
       y: height - (item.position.y + item.size),
       size: item.size,

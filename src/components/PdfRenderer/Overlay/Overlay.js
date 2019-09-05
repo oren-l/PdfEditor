@@ -32,8 +32,9 @@ function Overlay({ items, scale, onItemMove }) {
           className={styles.item}
           position={item.position}
           size={item.size}
-          content={item.content}
+          value={item.value}
           scale={scale}
+          template={item.template}
           onDragEnd={event =>
             onItemMove(
               event,
