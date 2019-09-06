@@ -18,8 +18,6 @@ function PdfEditor() {
 
   return (
     <div className={styles.screenViewport}>
-      <h1>PDF Editor</h1>
-
       <ViewportStateProvider>
         <CounterProvider>
           <ModificationProvider>
