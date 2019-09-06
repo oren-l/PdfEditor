@@ -11,7 +11,7 @@ function PdfViewport({
   pageNum,
   scale,
   overlayItems,
-  className,
+  className = '',
   style,
   onClick,
   onItemMove,
