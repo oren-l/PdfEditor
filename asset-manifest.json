@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/PdfEditor/static/css/main.8b5b3ae8.chunk.css",
-    "main.js": "/PdfEditor/static/js/main.0d1cab3b.chunk.js",
-    "main.js.map": "/PdfEditor/static/js/main.0d1cab3b.chunk.js.map",
+    "main.css": "/PdfEditor/static/css/main.84052ae7.chunk.css",
+    "main.js": "/PdfEditor/static/js/main.6dc633e8.chunk.js",
+    "main.js.map": "/PdfEditor/static/js/main.6dc633e8.chunk.js.map",
     "runtime~main.js": "/PdfEditor/static/js/runtime~main.b2dc51fb.js",
     "runtime~main.js.map": "/PdfEditor/static/js/runtime~main.b2dc51fb.js.map",
-    "static/js/2.c30ddae1.chunk.js": "/PdfEditor/static/js/2.c30ddae1.chunk.js",
-    "static/js/2.c30ddae1.chunk.js.map": "/PdfEditor/static/js/2.c30ddae1.chunk.js.map",
+    "static/js/2.b4359f35.chunk.js": "/PdfEditor/static/js/2.b4359f35.chunk.js",
+    "static/js/2.b4359f35.chunk.js.map": "/PdfEditor/static/js/2.b4359f35.chunk.js.map",
     "index.html": "/PdfEditor/index.html",
-    "precache-manifest.00c1fb55c097f10d9d24d22e4f1262f2.js": "/PdfEditor/precache-manifest.00c1fb55c097f10d9d24d22e4f1262f2.js",
+    "precache-manifest.37101e6f5125d88f6e8275618f96de46.js": "/PdfEditor/precache-manifest.37101e6f5125d88f6e8275618f96de46.js",
     "service-worker.js": "/PdfEditor/service-worker.js",
-    "static/css/main.8b5b3ae8.chunk.css.map": "/PdfEditor/static/css/main.8b5b3ae8.chunk.css.map"
+    "static/css/main.84052ae7.chunk.css.map": "/PdfEditor/static/css/main.84052ae7.chunk.css.map"
   }
 }
