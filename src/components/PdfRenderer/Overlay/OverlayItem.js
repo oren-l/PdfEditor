@@ -3,8 +3,9 @@ import React from 'react'
 function OverlayItem({
   position,
   size,
-  content,
+  value,
   scale,
+  template,
   className,
   isSelected,
   ...otherProps
@@ -16,13 +17,14 @@ function OverlayItem({
         left: `${position.x * scale}px`,
         top: `${position.y * scale}px`,
         fontSize: `${size * scale}px`,
-        outline: isSelected ? '1px solid' : 'none',
+        outline: isSelected ? '1px solid red' : 'none',
         cursor: isSelected ? 'grab' : null
       }}
       draggable={isSelected}
+      title={isSelected ? 'Press <Delete> to remove this' : null}
       {...otherProps}
     >
-      {content}
+      {template(value)}
     </div>
   )
 }

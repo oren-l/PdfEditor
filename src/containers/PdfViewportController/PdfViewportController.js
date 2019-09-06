@@ -13,22 +13,26 @@ function placeRunningCounter(
   incrementCounter
 ) {
   const size = 12
+  const template = value => `(${value})`
   addModification({
     position: {
       x: position.x / scale - size / 2,
       y: position.y / scale - size / 2
     },
     size,
-    content: `(${counter})`
+    value: counter,
+    template
   })
   incrementCounter()
 }
 
 function PdfViewportController({ children }) {
-  const { data, setData: setFileData } = useContext(FileContext)
+  const { data } = useContext(FileContext)
   const { scale } = useContext(ViewportContext)
-  const { counter, incrementCounter } = useContext(CounterContext)
-  const { modList, addMod: addModification, changeMod } = useContext(
+  const { counter, incrementCounter, decrementCounter } = useContext(
+    CounterContext
+  )
+  const { modList, addMod: addModification, changeMod, removeMod } = useContext(
     ModificationContext
   )
 
@@ -53,6 +57,10 @@ function PdfViewportController({ children }) {
           y: position.y / scale - mod.size / 2
         }
       }))
+    },
+    onItemDelete: id => {
+      removeMod(id)
+      decrementCounter()
     }
   })
 }

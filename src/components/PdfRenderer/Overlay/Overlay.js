@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 import OverlayItem from './OverlayItem'
 
@@ -12,9 +13,10 @@ function getRelativeMousePos(element, event) {
   }
 }
 
-function Overlay({ items, scale, onItemMove }) {
+function Overlay({ items, scale, onItemMove, onItemDelete }) {
   const overlayRef = useRef(null)
   const [selectedItemId, setSelectedItemId] = useState(null)
+
   return (
     <div
       ref={overlayRef}
@@ -26,14 +28,25 @@ function Overlay({ items, scale, onItemMove }) {
         setSelectedItemId(null)
       }}
     >
+      <KeyboardEventHandler
+        handleKeys={['delete']}
+        handleEventType="keyup"
+        onKeyEvent={() => {
+          if (selectedItemId !== null) {
+            onItemDelete(selectedItemId)
+            setSelectedItemId(null)
+          }
+        }}
+      />
       {items.map(item => (
         <OverlayItem
           key={item.id}
           className={styles.item}
           position={item.position}
           size={item.size}
-          content={item.content}
+          value={item.value}
           scale={scale}
+          template={item.template}
           onDragEnd={event =>
             onItemMove(
               event,
