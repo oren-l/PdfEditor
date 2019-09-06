@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/PdfEditor/precache-manifest.37101e6f5125d88f6e8275618f96de46.js"
+  "/PdfEditor/precache-manifest.639c1714e5711d11636491ab4c6ae5ac.js"
 );
 
 self.addEventListener('message', (event) => {
