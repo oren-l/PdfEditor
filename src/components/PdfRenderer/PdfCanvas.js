@@ -6,6 +6,7 @@ function renderPdfToCanvas(canvasEl, page, scale) {
   canvasEl.width = viewport.width // canvas width and height must be according to viewport scale!
   canvasEl.height = viewport.height
 
+  // console.warn('[PdfCanvas] page.render')
   page.render({
     canvasContext: canvasEl.getContext('2d'),
     viewport
@@ -23,9 +24,11 @@ class PdfCanvas extends Component {
     renderPdfToCanvas(this.canvasRef.current, page, scale)
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { page, scale } = this.props
-    renderPdfToCanvas(this.canvasRef.current, page, scale)
+    if (page !== prevProps.page || scale !== prevProps.scale) {
+      renderPdfToCanvas(this.canvasRef.current, page, scale)
+    }
   }
 
   // drawDot = event => {
