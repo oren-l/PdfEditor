@@ -6,6 +6,7 @@
   left: 0;
   right: 0;
   position: absolute;
+  display: flex;
 }
 
 .page {
@@ -13,6 +14,7 @@
   border: 9px solid transparent;
   overflow: visible;
   position: relative;
+  margin: auto;
 }
 
 .page .overlay {
