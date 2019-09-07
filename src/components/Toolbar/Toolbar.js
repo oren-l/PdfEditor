@@ -7,6 +7,7 @@ function toolbar({
   scale,
   counter,
   onZoomChange,
+  onRotate,
   onDownload,
   onLoad
 }) {
@@ -25,6 +26,14 @@ function toolbar({
           -
         </button>
         <input type="text" disabled value={`${(scale * 100).toFixed(0)}%`} />
+      </div>
+      <div>
+        <button disabled={disabled} onClick={() => onRotate(-90)}>
+          left
+        </button>
+        <button disabled={disabled} onClick={() => onRotate(+90)}>
+          right
+        </button>
       </div>
 
       <button disabled={disabled} onClick={onLoad}>

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { saveAs } from 'file-saver'
-import { PDFDocument, rgb } from 'pdf-lib'
+import { PDFDocument, rgb, degrees } from 'pdf-lib'
 import fontkit from '@pdf-lib/fontkit'
 
 import { FileContext } from '../../context/file-context'
@@ -17,6 +17,7 @@ async function download(fileData, modificationList) {
   const font = await pdfDoc.embedFont(fontBytes)
   const [firstPage] = pdfDoc.getPages()
   const { height } = firstPage.getSize()
+  // firstPage.setRotation(degrees(90))
   modificationList.forEach(item => {
     firstPage.drawText(item.template(item.value), {
       x: item.position.x,
@@ -33,17 +34,33 @@ async function download(fileData, modificationList) {
   saveAs(blob, 'output.pdf')
 }
 
+async function rotate(fileData, setFileData, angle) {
+  const pdfDoc = await PDFDocument.load(fileData)
+  const [firstPage] = pdfDoc.getPages()
+  const currAngle = firstPage.getRotation().angle
+  firstPage.setRotation(degrees(currAngle + angle))
+  const modifiedData = await pdfDoc.save()
+  setFileData(modifiedData)
+}
+
 function ToolbarController({ children }) {
-  const { data: fileData, isFileLoaded } = useContext(FileContext)
+  const { data: fileData, isFileLoaded, setData: setFileData } = useContext(
+    FileContext
+  )
   const { scale, setScale } = useContext(ViewportContext)
-  const { counter } = useContext(CounterContext)
-  const { modList } = useContext(ModificationContext)
+  const { counter, resetCounter } = useContext(CounterContext)
+  const { modList, resetModList } = useContext(ModificationContext)
   const onZoomChange = amount => setScale(scale => scale + amount)
 
   return children({
     disabled: isFileLoaded() === false,
     scale,
     onZoomChange,
+    onRotate: angle => {
+      rotate(fileData, setFileData, angle)
+      resetModList()
+      resetCounter()
+    },
     counter,
     onDownload: () => download(fileData, modList)
   })
