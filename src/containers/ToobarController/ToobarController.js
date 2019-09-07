@@ -57,6 +57,12 @@ function ToolbarController({ children }) {
     scale,
     onZoomChange,
     onRotate: angle => {
+      if (modList.length !== 0) {
+        const result = window.confirm('Warning: all changes will be lost') // TODO: replace this with a proper modal
+        if (result === false) {
+          return // cancel rotation
+        }
+      }
       rotate(fileData, setFileData, angle)
       resetModList()
       resetCounter()
