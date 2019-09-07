@@ -6,6 +6,7 @@
   left: 0;
   right: 0;
   position: absolute;
+  display: flex;
 }
 
 .page {
@@ -13,20 +14,5 @@
   border: 9px solid transparent;
   overflow: visible;
   position: relative;
-}
-
-.page .overlay {
-  width: 100%;
-  height: 100%;
-}
-
-.page .overlay .item {
-  position: absolute;
-  user-select: none;
-  color: blue;
-  cursor: pointer;
-  font-family: 'Roboto';
-  min-width: 20px;
-  min-height: 20px;
-  outline-offset: 0.5em;
+  margin: auto;
 }

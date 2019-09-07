@@ -3,7 +3,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 import OverlayItem from './OverlayItem'
 
-import styles from '../PdfViewport.module.css'
+import styles from './Overlay.module.css'
 
 function getRelativeMousePos(element, event) {
   const { left, top } = element.getBoundingClientRect()
@@ -41,7 +41,6 @@ function Overlay({ items, scale, onItemMove, onItemDelete }) {
       {items.map(item => (
         <OverlayItem
           key={item.id}
-          className={styles.item}
           position={item.position}
           size={item.size}
           value={item.value}
