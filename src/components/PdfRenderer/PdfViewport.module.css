@@ -16,17 +16,3 @@
   position: relative;
   margin: auto;
 }
-
-.page .overlay {
-  width: 100%;
-  height: 100%;
-}
-
-.page .overlay .item {
-  position: absolute;
-  user-select: none;
-  color: blue;
-  cursor: pointer;
-  font-family: 'Roboto';
-  outline-offset: 0.5em;
-}
