@@ -3,6 +3,7 @@
   height: 40px;
   padding: 5px 5px;
   box-sizing: border-box;
+  font-size: 14px;
 }
 
 .toolbar button:not([disabled]) {
@@ -13,19 +14,24 @@
   margin: 0 2px;
 }
 
-.toolbar .scale {
+.toolbar .group {
   display: flex;
   margin: 0 5px;
   border: 1px solid #666;
 }
 
-.toolbar .scale > * {
+.toolbar .group > * {
   margin: 1px;
 }
 
-.toolbar .scale input {
+.toolbar .group input {
   width: 4em;
   text-align: center;
+}
+
+.toolbar .group label {
+  color: white;
+  margin: auto 3px;
 }
 
 .toolbar .text {
