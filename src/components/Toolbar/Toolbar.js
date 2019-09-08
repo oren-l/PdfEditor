@@ -7,6 +7,7 @@ function toolbar({
   scale,
   counter,
   onZoomChange,
+  onRotate,
   onDownload,
   onLoad
 }) {
@@ -17,7 +18,7 @@ function toolbar({
   )
   return (
     <div className={styles.toolbar}>
-      <div className={styles.scale}>
+      <div className={styles.group}>
         <button disabled={disabled} onClick={() => onZoomChange(+0.1)}>
           +
         </button>
@@ -25,6 +26,15 @@ function toolbar({
           -
         </button>
         <input type="text" disabled value={`${(scale * 100).toFixed(0)}%`} />
+      </div>
+      <div className={styles.group}>
+        <button disabled={disabled} onClick={() => onRotate(-90)}>
+          Left
+        </button>
+        <label>Rotate</label>
+        <button disabled={disabled} onClick={() => onRotate(+90)}>
+          Right
+        </button>
       </div>
 
       <button disabled={disabled} onClick={onLoad}>
