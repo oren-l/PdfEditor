@@ -8,6 +8,21 @@ import { ViewportContext } from '../../context/viewport-context'
 import { CounterContext } from '../../context/counter-context'
 import { ModificationContext } from '../../context/modification-context'
 
+const getPositiveAngle = angle => ((angle % 360) + 360) % 360
+
+function translatePos(angle, x, y, width, height) {
+  switch (angle) {
+    case 0:
+      return { x, y }
+    case 90:
+      return { x: y, y: height - x }
+    case 180:
+      return { x: width - x, y: height - y }
+    case 270:
+      return { x: width - y, y: x }
+  }
+}
+
 async function download(fileData, modificationList) {
   const pdfDoc = await PDFDocument.load(fileData)
   const fontUrl = `${process.env.PUBLIC_URL}/fonts/Roboto/Roboto-Regular.ttf`
@@ -16,12 +31,23 @@ async function download(fileData, modificationList) {
   console.log('font loaded: ', fontBytes)
   const font = await pdfDoc.embedFont(fontBytes)
   const [firstPage] = pdfDoc.getPages()
-  const { height } = firstPage.getSize()
-  // firstPage.setRotation(degrees(90))
+  const { width, height } = firstPage.getSize()
+  const originalAngle = firstPage.getRotation().angle
+  const angle = getPositiveAngle(originalAngle)
+  console.log(`original: ${originalAngle} angle: ${angle}`)
+
   modificationList.forEach(item => {
+    const position = translatePos(
+      angle,
+      item.position.x,
+      item.position.y + item.size,
+      width,
+      height
+    )
     firstPage.drawText(item.template(item.value), {
-      x: item.position.x,
-      y: height - (item.position.y + item.size),
+      x: position.x,
+      y: height - position.y,
+      rotate: degrees(angle),
       size: item.size,
       font,
       color: rgb(0, 0, 1)
