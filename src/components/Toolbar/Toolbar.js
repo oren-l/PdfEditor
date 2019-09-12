@@ -18,6 +18,18 @@ function toolbar({
       Place next running label: {`{${counter}}`}
     </div>
   )
+
+  const onFontSizeChange = event => {
+    const input = event.target.value
+    const isValidFormat = /^\d+(\.\d)?$/.test(input)
+
+    if (event.target.validity.valid && isValidFormat) {
+      const value = parseFloat(input)
+      const roundByHalf = value => Math.round(value * 2) / 2
+      setFontSize(roundByHalf(value))
+    }
+  }
+
   return (
     <div className={styles.toolbar}>
       <div className={styles.group}>
@@ -43,8 +55,11 @@ function toolbar({
           type="number"
           title="Font size"
           value={fontSize}
-          onChange={event => setFontSize(event.target.value)}
+          onChange={onFontSizeChange}
           disabled={disabled}
+          min="1"
+          max="400"
+          step="any"
         />
       </div>
 
