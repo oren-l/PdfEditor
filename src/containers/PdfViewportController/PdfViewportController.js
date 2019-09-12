@@ -10,9 +10,9 @@ function placeRunningCounter(
   counter,
   position,
   addModification,
-  incrementCounter
+  incrementCounter,
+  size
 ) {
-  const size = 12
   const template = value => `(${value})`
   addModification({
     position: {
@@ -28,7 +28,7 @@ function placeRunningCounter(
 
 function PdfViewportController({ children }) {
   const { data } = useContext(FileContext)
-  const { scale } = useContext(ViewportContext)
+  const { scale, fontSize } = useContext(ViewportContext)
   const { counter, incrementCounter, decrementCounter } = useContext(
     CounterContext
   )
@@ -47,7 +47,8 @@ function PdfViewportController({ children }) {
         counter,
         position,
         addModification,
-        incrementCounter
+        incrementCounter,
+        fontSize
       ),
     onItemMove: (event, position, id) => {
       changeMod(id, mod => ({

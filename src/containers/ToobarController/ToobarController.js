@@ -73,7 +73,7 @@ function ToolbarController({ children }) {
   const { data: fileData, isFileLoaded, setData: setFileData } = useContext(
     FileContext
   )
-  const { scale, setScale } = useContext(ViewportContext)
+  const { scale, setScale, fontSize, setFontSize } = useContext(ViewportContext)
   const { counter, resetCounter } = useContext(CounterContext)
   const { modList, resetModList } = useContext(ModificationContext)
   const onZoomChange = amount => setScale(scale => scale + amount)
@@ -94,7 +94,9 @@ function ToolbarController({ children }) {
       resetCounter()
     },
     counter,
-    onDownload: () => download(fileData, modList)
+    onDownload: () => download(fileData, modList),
+    fontSize,
+    setFontSize
   })
 }
 

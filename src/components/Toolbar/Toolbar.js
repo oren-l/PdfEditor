@@ -9,7 +9,9 @@ function toolbar({
   onZoomChange,
   onRotate,
   onDownload,
-  onLoad
+  onLoad,
+  fontSize,
+  setFontSize
 }) {
   const runningLabelText = disabled ? null : (
     <div className={styles.text}>
@@ -35,6 +37,15 @@ function toolbar({
         <button disabled={disabled} onClick={() => onRotate(+90)}>
           Right
         </button>
+      </div>
+      <div className={styles.group}>
+        <input
+          type="number"
+          title="Font size"
+          value={fontSize}
+          onChange={event => setFontSize(event.target.value)}
+          disabled={disabled}
+        />
       </div>
 
       <button disabled={disabled} onClick={onLoad}>
