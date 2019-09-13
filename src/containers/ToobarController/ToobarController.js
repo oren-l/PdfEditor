@@ -23,7 +23,7 @@ function translatePos(angle, x, y, width, height) {
   }
 }
 
-async function download(fileData, modificationList) {
+async function download(fileData, modificationList, fontSize) {
   const pdfDoc = await PDFDocument.load(fileData)
   const fontUrl = `${process.env.PUBLIC_URL}/fonts/Roboto/Roboto-Regular.ttf`
   pdfDoc.registerFontkit(fontkit)
@@ -39,8 +39,8 @@ async function download(fileData, modificationList) {
   modificationList.forEach(item => {
     const position = translatePos(
       angle,
-      item.position.x,
-      item.position.y + item.size,
+      item.position.x - fontSize / 2,
+      item.position.y + fontSize / 2,
       width,
       height
     )
@@ -48,7 +48,7 @@ async function download(fileData, modificationList) {
       x: position.x,
       y: height - position.y,
       rotate: degrees(angle),
-      size: item.size,
+      size: fontSize,
       font,
       color: rgb(0, 0, 1)
     })
@@ -73,7 +73,7 @@ function ToolbarController({ children }) {
   const { data: fileData, isFileLoaded, setData: setFileData } = useContext(
     FileContext
   )
-  const { scale, setScale } = useContext(ViewportContext)
+  const { scale, setScale, fontSize, setFontSize } = useContext(ViewportContext)
   const { counter, resetCounter } = useContext(CounterContext)
   const { modList, resetModList } = useContext(ModificationContext)
   const onZoomChange = amount => setScale(scale => scale + amount)
@@ -94,7 +94,9 @@ function ToolbarController({ children }) {
       resetCounter()
     },
     counter,
-    onDownload: () => download(fileData, modList)
+    onDownload: () => download(fileData, modList, fontSize),
+    fontSize,
+    setFontSize
   })
 }
 

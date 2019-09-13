@@ -9,13 +9,27 @@ function toolbar({
   onZoomChange,
   onRotate,
   onDownload,
-  onLoad
+  onLoad,
+  fontSize,
+  setFontSize
 }) {
   const runningLabelText = disabled ? null : (
     <div className={styles.text}>
       Place next running label: {`{${counter}}`}
     </div>
   )
+
+  const onFontSizeChange = event => {
+    const input = event.target.value
+    const isValidFormat = /^\d+(\.\d)?$/.test(input)
+
+    if (event.target.validity.valid && isValidFormat) {
+      const value = parseFloat(input)
+      const roundByHalf = value => Math.round(value * 2) / 2
+      setFontSize(roundByHalf(value))
+    }
+  }
+
   return (
     <div className={styles.toolbar}>
       <div className={styles.group}>
@@ -35,6 +49,18 @@ function toolbar({
         <button disabled={disabled} onClick={() => onRotate(+90)}>
           Right
         </button>
+      </div>
+      <div className={styles.group}>
+        <input
+          type="number"
+          title="Font size"
+          value={fontSize}
+          onChange={onFontSizeChange}
+          disabled={disabled}
+          min="1"
+          max="400"
+          step="any"
+        />
       </div>
 
       <button disabled={disabled} onClick={onLoad}>

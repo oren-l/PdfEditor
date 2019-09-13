@@ -13,7 +13,7 @@ function getRelativeMousePos(element, event) {
   }
 }
 
-function Overlay({ items, scale, onItemMove, onItemDelete }) {
+function Overlay({ items, scale, onItemMove, onItemDelete, fontSize }) {
   const overlayRef = useRef(null)
   const [selectedItemId, setSelectedItemId] = useState(null)
 
@@ -48,7 +48,7 @@ function Overlay({ items, scale, onItemMove, onItemDelete }) {
         <OverlayItem
           key={item.id}
           position={item.position}
-          size={item.size}
+          size={fontSize}
           value={item.value}
           scale={scale}
           template={item.template}

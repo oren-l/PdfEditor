@@ -15,8 +15,8 @@ function OverlayItem({
     <div
       className={`${styles.item} ${isSelected ? styles.selected : ''}`}
       style={{
-        left: `${position.x * scale}px`,
-        top: `${position.y * scale}px`,
+        left: `${(position.x - size / 2) * scale}px`,
+        top: `${(position.y - size / 2) * scale}px`,
         fontSize: `${size * scale}px`
       }}
       draggable={isSelected}
