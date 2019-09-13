@@ -10,16 +10,14 @@ function placeRunningCounter(
   counter,
   position,
   addModification,
-  incrementCounter,
-  size
+  incrementCounter
 ) {
   const template = value => `(${value})`
   addModification({
     position: {
-      x: position.x / scale - size / 2,
-      y: position.y / scale - size / 2
+      x: position.x / scale,
+      y: position.y / scale
     },
-    size,
     value: counter,
     template
   })
@@ -47,15 +45,14 @@ function PdfViewportController({ children }) {
         counter,
         position,
         addModification,
-        incrementCounter,
-        fontSize
+        incrementCounter
       ),
     onItemMove: (event, position, id) => {
       changeMod(id, mod => ({
         ...mod,
         position: {
-          x: position.x / scale - mod.size / 2,
-          y: position.y / scale - mod.size / 2
+          x: position.x / scale,
+          y: position.y / scale
         }
       }))
     },

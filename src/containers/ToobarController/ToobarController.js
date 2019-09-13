@@ -39,8 +39,8 @@ async function download(fileData, modificationList, fontSize) {
   modificationList.forEach(item => {
     const position = translatePos(
       angle,
-      item.position.x,
-      item.position.y + fontSize,
+      item.position.x - fontSize / 2,
+      item.position.y + fontSize / 2,
       width,
       height
     )
