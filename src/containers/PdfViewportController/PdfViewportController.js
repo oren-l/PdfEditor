@@ -62,7 +62,8 @@ function PdfViewportController({ children }) {
     onItemDelete: id => {
       removeMod(id)
       decrementCounter()
-    }
+    },
+    fontSize
   })
 }
 

@@ -15,7 +15,8 @@ function PdfViewport({
   style,
   onClick,
   onItemMove,
-  onItemDelete
+  onItemDelete,
+  fontSize
 }) {
   return (
     <div className={`${className} ${styles.viewport}`} style={style}>
@@ -31,6 +32,7 @@ function PdfViewport({
                       scale={scale}
                       onItemMove={onItemMove}
                       onItemDelete={onItemDelete}
+                      fontSize={fontSize}
                     />
                     <PdfCanvas page={page} scale={scale} onClick={onClick} />
                   </React.Fragment>

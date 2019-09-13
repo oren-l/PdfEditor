@@ -23,7 +23,7 @@ function translatePos(angle, x, y, width, height) {
   }
 }
 
-async function download(fileData, modificationList) {
+async function download(fileData, modificationList, fontSize) {
   const pdfDoc = await PDFDocument.load(fileData)
   const fontUrl = `${process.env.PUBLIC_URL}/fonts/Roboto/Roboto-Regular.ttf`
   pdfDoc.registerFontkit(fontkit)
@@ -40,7 +40,7 @@ async function download(fileData, modificationList) {
     const position = translatePos(
       angle,
       item.position.x,
-      item.position.y + item.size,
+      item.position.y + fontSize,
       width,
       height
     )
@@ -48,7 +48,7 @@ async function download(fileData, modificationList) {
       x: position.x,
       y: height - position.y,
       rotate: degrees(angle),
-      size: item.size,
+      size: fontSize,
       font,
       color: rgb(0, 0, 1)
     })
@@ -94,7 +94,7 @@ function ToolbarController({ children }) {
       resetCounter()
     },
     counter,
-    onDownload: () => download(fileData, modList),
+    onDownload: () => download(fileData, modList, fontSize),
     fontSize,
     setFontSize
   })
