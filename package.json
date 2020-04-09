@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn version && yarn build",
+    "release": "np",
+    "predeploy": "npm run release && npm run build",
     "deploy": "gh-pages -d build && git push --follow-tags"
   },
   "eslintConfig": {
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.1",
-    "gh-pages": "^2.1.1"
+    "gh-pages": "^2.1.1",
+    "np": "^6.2.0"
   }
 }

@@ -1,0 +1,6 @@
+{
+	"yarn": false,
+    "contents": "build",
+    "publish": false,
+    "tests": false
+}
