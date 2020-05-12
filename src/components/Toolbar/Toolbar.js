@@ -5,6 +5,8 @@ import styles from './Toolbar.module.css'
 function toolbar({
   disabled,
   scale,
+  initialCounter,
+  setInitialCounter,
   counter,
   onZoomChange,
   onRotate,
@@ -15,7 +17,7 @@ function toolbar({
 }) {
   const runningLabelText = disabled ? null : (
     <div className={styles.text}>
-      Place next running label: {`{${counter}}`}
+      Place next running label: {`(${counter})`}
     </div>
   )
 
@@ -28,6 +30,12 @@ function toolbar({
       const roundByHalf = value => Math.round(value * 2) / 2
       setFontSize(roundByHalf(value))
     }
+  }
+
+  const onInitialCounterChange = event => {
+    const input = event.target.value
+    const value = parseInt(input)
+    setInitialCounter(value)
   }
 
   return (
@@ -69,7 +77,20 @@ function toolbar({
       <button disabled={disabled} onClick={onDownload}>
         Download
       </button>
-      {runningLabelText}
+      <div className={styles.group}>
+        <div className={styles.text}>
+          Initial counter
+        </div>
+        <input
+          type="number"
+          title="Initial Label"
+          value={initialCounter}
+          onChange={onInitialCounterChange}
+          step="1"
+          disabled={!disabled}
+        />
+        {runningLabelText}
+      </div>
     </div>
   )
 }

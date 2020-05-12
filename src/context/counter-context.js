@@ -1,22 +1,23 @@
 import React, { useState, createContext } from 'react'
 
-const initialCounter = 2
-
 export const CounterContext = createContext({
-  counter: initialCounter,
+  counter: 0,
+  initialCounter: 0,
   resetCounter: () => {},
+  setInitialCounter: () => {},
   incrementCounter: () => {},
   decrementCounter: () => {}
 })
 
 export default ({ children }) => {
+  const [initialCounter, setInitialCounter] = useState(2)
   const [counter, setCounter] = useState(initialCounter)
   const resetCounter = () => setCounter(initialCounter)
   const incrementCounter = () => setCounter(counter => counter + 1)
   const decrementCounter = () => setCounter(counter => counter - 1)
   return (
     <CounterContext.Provider
-      value={{ counter, resetCounter, incrementCounter, decrementCounter }}
+      value={{ counter, initialCounter, resetCounter, setInitialCounter, incrementCounter, decrementCounter }}
     >
       {children}
     </CounterContext.Provider>
