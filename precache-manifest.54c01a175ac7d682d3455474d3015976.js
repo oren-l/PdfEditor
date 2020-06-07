@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5de80b4646e1c91c60db82ba705733a0",
+    "revision": "d118051069ca70ec73be353c4acdc2b4",
     "url": "/PdfEditor/index.html"
   },
   {
